@@ -3,44 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAMES-DZ | متجر المحتوى الرقمي</title>
+    <title>GAMES-DZ | مكتبة القصص الرقمية</title>
     <style>
-        :root { --primary: #38bdf8; --whatsapp: #25d366; --paypal: #003087; --redot: #ff3b30; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0f172a; color: white; margin: 0; padding: 20px; }
-        .header { padding: 40px 0; border-bottom: 2px solid var(--primary); margin-bottom: 30px; }
-        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-        .product-card { background: #1e293b; border: 1px solid var(--primary); border-radius: 15px; width: 320px; padding: 20px; transition: 0.3s; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(56, 189, 248, 0.2); }
-        .price { color: var(--primary); font-size: 1.6rem; font-weight: bold; margin: 15px 0; }
+        :root { --primary: #38bdf8; --bg: #0f172a; --card: #1e293b; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: white; margin: 0; padding: 20px; }
+        .header { text-align: center; padding: 50px 0; }
+        .library-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
         
-        /* أزرار الدفع */
-        .btn { display: flex; align-items: center; justify-content: center; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; margin-bottom: 10px; font-size: 0.9rem; transition: 0.2s; color: white; }
-        .btn-wa { background: var(--whatsapp); }
-        .btn-pp { background: var(--paypal); }
-        .btn-redot { background: var(--redot); }
-        .btn:hover { opacity: 0.9; transform: scale(1.02); }
+        .book-card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid #334155; transition: 0.3s; }
+        .book-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .book-cover { width: 100%; height: 300px; background: #334155; object-fit: cover; }
+        .book-info { padding: 20px; text-align: center; }
+        
+        .btn-buy { display: inline-block; background: var(--primary); color: var(--bg); padding: 10px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 15px; cursor: pointer; }
+        
+        /* واجهة الدفع (Modal) */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
+        .modal-content { background: var(--card); margin: 10% auto; padding: 30px; width: 90%; max-width: 400px; border-radius: 20px; text-align: center; border: 2px solid var(--primary); }
+        .payment-btn { display: block; padding: 15px; margin: 10px 0; border-radius: 10px; text-decoration: none; color: white; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>متجر GAMES-DZ</h1>
-    <p>اختر وسيلة الدفع التي تناسبك لاستلام محتواك فوراً</p>
+    <h1>مكتبة GAMES-DZ</h1>
+    <p>تصفح أفضل القصص المصورة والمحتوى الحصري</p>
 </div>
 
-<div class="container">
-    <div class="product-card">
-        <h3>القصة المصورة - العدد #1</h3>
-        <p>مغامرة رقمية بصيغة PDF</p>
-        <div class="price">2.50$ / 400 د.ج</div>
-        
-        <a href="https://wa.me/213558592542?text=أريد شراء القصة عبر Baridimob" class="btn btn-wa">التواصل المباشر (الجزائر)</a>
-        
-        <a href="https://www.paypal.me/YOUR_USER/5" class="btn btn-pp">الدفع عبر PayPal</a>
-        
-        <a href="https://link.redotpay.com/1425466839" class="btn btn-redot">الدفع عبر RedotPay</a>
+<div class="library-grid">
+    <div class="book-card">
+        <img src="cover1.jpg" alt="اسم القصة" class="book-cover">
+        <div class="book-info">
+            <h3>مغامرات الفضاء</h3>
+            <p>السعر: 400 د.ج / 2.5$</p>
+            <div class="btn-buy" onclick="showPayment('مغامرات الفضاء', '400')">شراء الآن</div>
+        </div>
+    </div>
+
+    <div class="book-card">
+        <img src="cover2.jpg" alt="اسم القصة" class="book-cover">
+        <div class="book-info">
+            <h3>بطل الصحراء</h3>
+            <p>السعر: 500 د.ج / 3$</p>
+            <div class="btn-buy" onclick="showPayment('بطل الصحراء', '500')">شراء الآن</div>
+        </div>
     </div>
 </div>
+
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <h2 id="selectedBook">اسم القصة</h2>
+        <p>اختر وسيلة الدفع:</p>
+        <a id="waLink" href="#" class="payment-btn" style="background: #25d366;">الواتساب (Baridimob)</a>
+        <a id="ppLink" href="#" class="payment-btn" style="background: #003087;">PayPal</a>
+        <button onclick="closePayment()" style="background:none; border:none; color:#94a3b8; cursor:pointer; margin-top:15px;">إلغاء</button>
+    </div>
+</div>
+
+<script>
+    function showPayment(name, price) {
+        document.getElementById('paymentModal').style.display = "block";
+        document.getElementById('selectedBook').innerText = name;
+        // تحديث الروابط ديناميكياً
+        document.getElementById('waLink').href = "https://wa.me/213558592542?text=أريد شراء: " + name;
+    }
+    function closePayment() {
+        document.getElementById('paymentModal').style.display = "none";
+    }
+</script>
 
 </body>
 </html>
