@@ -3,142 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAMES-DZ | Global Shopping</title>
+    <title>DZ-MARKET | سوق الجزائر الشامل</title>
     <style>
         :root {
             --ali-orange: #ff4747;
-            --ali-black: #222;
-            --ali-grey: #f4f4f4;
-            --primary: #38bdf8;
+            --ali-black: #191919;
+            --ali-grey: #f2f2f2;
+            --white: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', sans-serif;
             background-color: var(--ali-grey);
             margin: 0;
             padding: 0;
             color: #333;
         }
 
-        /* شريط التنبيه العلوي */
-        .top-bar {
-            background: var(--ali-black);
-            color: white;
+        /* شريط علوي للبائعين */
+        .seller-bar {
+            background: #fff5e6;
+            color: #d48806;
             text-align: center;
-            padding: 8px 0;
-            font-size: 0.8rem;
+            padding: 10px;
+            font-weight: bold;
+            border-bottom: 1px solid #ffe58f;
         }
 
-        /* رأس الموقع (Header) */
+        .seller-bar a {
+            color: var(--ali-orange);
+            text-decoration: underline;
+            margin-right: 10px;
+        }
+
         header {
-            background: white;
+            background: var(--ali-black);
             padding: 15px 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: sticky;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 900;
-            color: var(--ali-orange);
+            color: var(--white);
             text-decoration: none;
         }
+        .logo span { color: var(--ali-orange); }
 
         .search-bar {
             flex-grow: 1;
-            margin: 0 20px;
-            position: relative;
+            margin: 0 30px;
+            display: flex;
         }
 
         .search-bar input {
             width: 100%;
-            padding: 10px 15px;
-            border: 2px solid var(--ali-orange);
+            padding: 12px 20px;
+            border: none;
             border-radius: 25px;
             outline: none;
         }
 
-        /* شبكة المنتجات */
+        /* نظام الفئات (Categories) */
+        .categories-nav {
+            background: white;
+            padding: 10px 5%;
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cat-item {
+            white-space: nowrap;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: #eee;
+            color: #555;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .cat-item:hover { background: var(--ali-orange); color: white; }
+
+        /* حاوية المنتجات */
         .main-container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 20px auto;
             padding: 10px;
         }
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 15px;
         }
 
         .product-card {
             background: white;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
+            border: 1px solid #e5e5e5;
             transition: 0.3s;
-            border: 1px solid #ddd;
-            display: flex;
-            flex-direction: column;
         }
 
-        .product-card:hover {
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transform: translateY(-3px);
-            border-color: var(--ali-orange);
-        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 
-        .product-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
+        .product-img { width: 100%; height: 220px; object-fit: cover; }
 
-        .product-info {
-            padding: 12px;
-            flex-grow: 1;
-        }
-
-        .product-title {
-            font-size: 0.9rem;
-            height: 40px;
-            overflow: hidden;
-            margin-bottom: 8px;
-            color: #444;
-        }
-
-        .product-price {
-            color: var(--ali-orange);
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .old-price {
-            text-decoration: line-through;
-            color: #999;
-            font-size: 0.8rem;
-            margin-right: 5px;
-        }
-
-        .shipping {
-            font-size: 0.75rem;
-            color: #25d366;
-            margin-top: 5px;
-        }
+        .product-info { padding: 15px; }
+        .product-title { font-size: 0.95rem; color: #444; height: 40px; margin-bottom: 10px; }
+        .product-price { color: var(--ali-orange); font-size: 1.3rem; font-weight: bold; }
 
         .buy-btn {
-            background: linear-gradient(90deg, #ff7300, #ff4747);
+            background: var(--ali-orange);
             color: white;
             text-align: center;
             padding: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9rem;
             cursor: pointer;
+            font-weight: bold;
         }
 
         /* نافذة الدفع */
@@ -146,63 +135,72 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
         }
 
         .modal-content {
             background: white;
             width: 90%;
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 20px;
-            border-radius: 12px;
+            max-width: 450px;
+            margin: 80px auto;
+            padding: 30px;
+            border-radius: 20px;
             text-align: center;
         }
 
-        .pay-option {
+        .pay-btn {
             display: block;
             padding: 15px;
             margin: 10px 0;
-            border-radius: 8px;
-            color: white;
+            border-radius: 10px;
             text-decoration: none;
+            color: white;
             font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-<div class="top-bar">توصيل رقمي فوري لجميع الولايات ⚡ عروض حصرية اليوم!</div>
+<div class="seller-bar">
+    هل تريد بيع منتجك هنا؟ 💰 <a href="https://wa.me/213XXXXXXXXX?text=أريد عرض منتجي للبيع في الموقع">اضغط هنا للتواصل معنا (خدمة مدفوعة)</a>
+</div>
 
 <header>
-    <a href="#" class="logo">GAMES-DZ</a>
+    <a href="#" class="logo">DZ<span>MARKET</span></a>
     <div class="search-bar">
-        <input type="text" placeholder="ابحث عن قصص، برامج، ألعاب...">
+        <input type="text" placeholder="ابحث عن أي شيء في الجزائر...">
     </div>
 </header>
+
+<div class="categories-nav">
+    <a href="#" class="cat-item">كل الفئات</a>
+    <a href="#" class="cat-item">إلكترونيات</a>
+    <a href="#" class="cat-item">أزياء</a>
+    <a href="#" class="cat-item">ألعاب رقمية</a>
+    <a href="#" class="cat-item">رياضة</a>
+    <a href="#" class="cat-item">كتب وقصص</a>
+</div>
 
 <div class="main-container">
     <div class="product-grid">
         
         <div class="product-card">
-            <img src="Muscular Physique.jpg" class="product-img">
+            <img src="https://via.placeholder.com/300x300?text=Electronics" class="product-img">
             <div class="product-info">
-                <div class="product-title">دليل بناء العضلات الاحترافي - نسخة PDF كاملة</div>
-                <div class="product-price">400 د.ج <span class="old-price">800 د.ج</span></div>
-                <div class="shipping">توصيل مجاني فوري</div>
+                <div class="product-title">سماعات بلوتوث عالية الجودة - عازلة للضوضاء</div>
+                <div class="product-price">3500 د.ج</div>
             </div>
-            <div class="buy-btn" onclick="openModal('دليل بناء العضلات', '400')">شراء الآن</div>
+            <div class="buy-btn" onclick="openModal('سماعات بلوتوث', '3500')">شراء الآن</div>
         </div>
 
         <div class="product-card">
-            <img src="discipline wallpaper.jpg" class="product-img">
+            <img src="Muscular Physique.jpg" class="product-img">
             <div class="product-info">
-                <div class="product-title">كتاب فن الانضباط - كيف تسيطر على حياتك</div>
-                <div class="product-price">500 د.ج <span class="old-price">1000 د.ج</span></div>
-                <div class="shipping">توصيل مجاني فوري</div>
+                <div class="product-title">دليل البناء البدني الشامل (PDF)</div>
+                <div class="product-price">400 د.ج</div>
             </div>
-            <div class="buy-btn" onclick="openModal('كتاب فن الانضباط', '500')">شراء الآن</div>
+            <div class="buy-btn" onclick="openModal('دليل البناء البدني', '400')">شراء الآن</div>
         </div>
 
     </div>
@@ -211,10 +209,10 @@
 <div id="payModal" class="modal">
     <div class="modal-content">
         <h3 id="pName">اسم المنتج</h3>
-        <p>اختر وسيلة الدفع لتأكيد الطلب:</p>
-        <a id="wa" href="#" class="pay-option" style="background: #25d366;">WhatsApp / Baridimob</a>
-        <a id="pp" href="#" class="pay-option" style="background: #003087;">PayPal</a>
-        <button onclick="closeModal()" style="border:none; background:none; color:red; cursor:pointer;">إلغاء</button>
+        <p>اختر طريقة الدفع للتواصل مع البائع:</p>
+        <a id="wa" href="#" class="pay-btn" style="background: #25d366;">الواتساب (بريدي موب)</a>
+        <a id="pp" href="#" class="pay-btn" style="background: #003087;">بايبال (PayPal)</a>
+        <button onclick="closeModal()" style="margin-top:15px; background:none; border:none; color:red; cursor:pointer;">إلغاء</button>
     </div>
 </div>
 
@@ -222,7 +220,8 @@
     function openModal(name, price) {
         document.getElementById('payModal').style.display = 'block';
         document.getElementById('pName').innerText = name;
-        document.getElementById('wa').href = "https://wa.me/213558592542?text=طلب شراء: " + name;
+        document.getElementById('wa').href = "https://wa.me/213XXXXXXXXX?text=أريد شراء: " + name;
+        document.getElementById('pp').href = "https://paypal.me/YOUR_USER/" + (price/150).toFixed(2);
     }
     function closeModal() {
         document.getElementById('payModal').style.display = 'none';
@@ -231,11 +230,3 @@
 
 </body>
 </html>
-<div class="product-card">
-    <img src="اسم_الصورة.jpg" class="product-img">
-    <div class="product-info">
-        <div class="product-title">اسم المنتج الجديد هنا</div>
-        <div class="product-price">السعر د.ج</div>
-    </div>
-    <div class="buy-btn" onclick="openModal('اسم المنتج الجديد', 'السعر')">شراء الآن</div>
-</div>
