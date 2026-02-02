@@ -3,255 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DZ-MARKET | سوق الجزائر الشامل</title>
+    <title>DZ Market Shop | سوق الجزائر الأول</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        :root {
-            --ali-orange: #ff4747;
-            --ali-black: #191919;
-            --ali-grey: #f2f2f2;
-            --white: #ffffff;
-        }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--ali-grey);
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-
-        /* شريط علوي للبائعين */
-        .seller-bar {
-            background: #fff5e6;
-            color: #d48806;
-            text-align: center;
-            padding: 10px;
-            font-weight: bold;
-            border-bottom: 1px solid #ffe58f;
-        }
-
-        .seller-bar a {
-            color: var(--ali-orange);
-            text-decoration: underline;
-            margin-right: 10px;
-        }
-
-        header {
-            background: var(--ali-black);
-            padding: 15px 5%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--white);
-            text-decoration: none;
-        }
-        .logo span { color: var(--ali-orange); }
-
-        .search-bar {
-            flex-grow: 1;
-            margin: 0 30px;
-            display: flex;
-        }
-
-        .search-bar input {
-            width: 100%;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 25px;
-            outline: none;
-        }
-
-        /* نظام الفئات (Categories) */
-        .categories-nav {
-            background: white;
-            padding: 10px 5%;
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .cat-item {
-            white-space: nowrap;
-            padding: 8px 15px;
-            border-radius: 20px;
-            background: #eee;
-            color: #555;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
-
-        .cat-item:hover { background: var(--ali-orange); color: white; }
-
-        /* حاوية المنتجات */
-        .main-container {
-            max-width: 1300px;
-            margin: 20px auto;
-            padding: 10px;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #e5e5e5;
-            transition: 0.3s;
-        }
-
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-
-        .product-img { width: 100%; height: 220px; object-fit: cover; }
-
-        .product-info { padding: 15px; }
-        .product-title { font-size: 0.95rem; color: #444; height: 40px; margin-bottom: 10px; }
-        .product-price { color: var(--ali-orange); font-size: 1.3rem; font-weight: bold; }
-
-        .buy-btn {
-            background: var(--ali-orange);
-            color: white;
-            text-align: center;
-            padding: 10px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        /* نافذة الدفع */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-        }
-
-        .modal-content {
-            background: white;
-            width: 90%;
-            max-width: 450px;
-            margin: 80px auto;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-        }
-
-        .pay-btn {
-            display: block;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-        }
-        /* تصميم زر الواتساب العائم */
-.whatsapp-float {
-    position: fixed;
-    width: 60px;
-    height: 60px;
-    bottom: 40px;
-    left: 40px;
-    background-color: #25d366;
-    color: #FFF;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 30px;
-    box-shadow: 2px 2px 3px #999;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.whatsapp-float:hover {
-    background-color: #128c7e;
-    transform: scale(1.1);
-}
+        body { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        .glass-panel { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .whatsapp-float { position: fixed; bottom: 90px; right: 20px; background-color: #25d366; color: #fff; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 2px 3px #999; z-index: 100; padding: 10px 20px; display: flex; align-items: center; gap: 10px; text-decoration: none; transition: all 0.3s ease; }
+        .whatsapp-float:hover { transform: scale(1.1); background-color: #128c7e; }
+        .bg-animate { background: linear-gradient(-45deg, #f3f4f6, #e5e7eb, #d1d5db); background-size: 400% 400%; animation: gradient 15s ease infinite; }
+        @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     </style>
 </head>
-<body>
+<body class="bg-animate min-h-screen">
 
-<div class="seller-bar">هل تريد بيع منتجك هنا؟ 💰 <a href="advertise.html">اضغط هنا لمعرفة التفاصيل والأسعار</a></div>
+    <a href="https://wa.me/213558592542" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span class="text-sm font-bold">اطلب الآن</span>
+    </a>
 
-<header>
-    <a href="#" class="logo">DZ<span>MARKET</span></a>
-    <div class="search-bar">
-        <input type="text" placeholder="ابحث عن أي شيء في الجزائر...">
-    </div>
-</header>
-
-<div class="categories-nav">
-    <a href="#" class="cat-item">كل الفئات</a>
-    <a href="#" class="cat-item">إلكترونيات</a>
-    <a href="#" class="cat-item">أزياء</a>
-    <a href="#" class="cat-item">ألعاب رقمية</a>
-    <a href="#" class="cat-item">رياضة</a>
-    <a href="#" class="cat-item">كتب وقصص</a>
-</div>
-
-<div class="main-container">
-    <div class="product-grid">
-        
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x300?text=Electronics" class="product-img">
-            <div class="product-info">
-                <div class="product-title">سماعات بلوتوث عالية الجودة - عازلة للضوضاء</div>
-                <div class="product-price">3500 د.ج</div>
+    <nav class="glass-panel sticky top-0 z-40 w-full shadow-md">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 text-white p-2 rounded-lg font-bold">DZ</div>
+                <span class="font-bold text-xl text-gray-800">Market Shop</span>
             </div>
-            <div class="buy-btn" onclick="openModal('سماعات بلوتوث', '3500')">شراء الآن</div>
-        </div>
-
-        <div class="product-card">
-            <img src="Muscular Physique.jpg" class="product-img">
-            <div class="product-info">
-                <div class="product-title">دليل البناء البدني الشامل (PDF)</div>
-                <div class="product-price">400 د.ج</div>
+            <div class="hidden md:flex space-x-6 space-x-reverse">
+                <a href="#" class="text-gray-700 hover:text-blue-600 font-semibold">الرئيسية</a>
+                <a href="#products" class="text-gray-700 hover:text-blue-600 font-semibold">المنتجات</a>
+                <a href="https://dz-market-shop.netlify.app/advertise.html" class="text-gray-700 hover:text-blue-600 font-semibold">أعلن معنا</a>
             </div>
-            <div class="buy-btn" onclick="openModal('دليل البناء البدني', '400')">شراء الآن</div>
+            <div class="flex items-center gap-4 text-gray-600">
+                <i class="fas fa-shopping-cart text-xl cursor-pointer hover:text-blue-600"></i>
+                <a href="tel:0558592542"><i class="fas fa-phone-alt text-xl cursor-pointer hover:text-green-600"></i></a>
+            </div>
         </div>
+    </nav>
 
-    </div>
-</div>
+    <header class="max-w-7xl mx-auto px-4 py-12">
+        <div class="glass-panel rounded-3xl p-8 md:p-16 flex flex-col md:flex-row items-center gap-10 shadow-2xl">
+            <div class="md:w-1/2 space-y-6 text-right">
+                <span class="bg-blue-100 text-blue-600 px-4 py-1 rounded-full text-sm font-bold">متوفر التوصيل لـ 58 ولاية</span>
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">تسوّق الأفضل في <br><span class="text-blue-600">الجزائر</span></h1>
+                <p class="text-lg text-gray-600">نحن نوفر لك الجودة، السعر المناسب، وضمان وصول المنتج إلى باب منزلك في أسرع وقت.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#products" class="bg-blue-600 text-white px-10 py-4 rounded-xl font-bold shadow-lg hover:bg-blue-700 transition">تصفح المنتجات</a>
+                    <a href="https://wa.me/213558592542" class="bg-white border-2 border-green-500 text-green-600 px-10 py-4 rounded-xl font-bold hover:bg-green-50 transition flex items-center gap-2">
+                        <i class="fab fa-whatsapp"></i> استفسار سريع
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <img src="https://via.placeholder.com/600x400" alt="DZ Market" class="rounded-2xl shadow-xl border-4 border-white">
+            </div>
+        </div>
+    </header>
 
-<div id="payModal" class="modal">
-    <div class="modal-content">
-        <h3 id="pName">اسم المنتج</h3>
-        <p>اختر طريقة الدفع للتواصل مع البائع:</p>
-        <a id="wa" href="#" class="pay-btn" style="background: #25d366;">الواتساب (بريدي موب)</a>
-        <a id="pp" href="#" class="pay-btn" style="background: #003087;">بايبال (PayPal)</a>
-        <button onclick="closeModal()" style="margin-top:15px; background:none; border:none; color:red; cursor:pointer;">إلغاء</button>
-    </div>
-</div>
+    <section id="products" class="max-w-7xl mx-auto px-4 py-16">
+        <h2 class="text-3xl font-bold text-gray-800 mb-10 text-center">أحدث العروض الحصرية</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition group">
+                <div class="h-56 bg-gray-100 relative overflow-hidden">
+                    <img src="https://via.placeholder.com/300" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">-20%</div>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-gray-800 text-lg">عنوان المنتج التجريبي</h3>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span class="text-blue-600 font-bold text-xl">4500 د.ج</span>
+                        <span class="text-gray-400 line-through text-sm">6000 د.ج</span>
+                    </div>
+                    <button onclick="window.open('https://wa.me/213558592542?text=أريد طلب هذا المنتج')" class="w-full mt-4 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">اطلب عبر واتساب</button>
+                </div>
+            </div>
+            </div>
+    </section>
 
-<script>
-    function openModal(name, price) {
-        document.getElementById('payModal').style.display = 'block';
-        document.getElementById('pName').innerText = name;
-        document.getElementById('wa').href = "https://wa.me/213558592542?text=أريد شراء: " + name;
-        document.getElementById('pp').href = "https://paypal.me/YOUR_USER/" + (price/150).toFixed(2);
-    }
-    function closeModal() {
-        document.getElementById('payModal').style.display = 'none';
-    }
-</script>
-<a href="https://wa.me/213558592542" class="whatsapp-float" target="_blank">
-    <span style="font-size: 40px;">➔</span>
-</a>
+    <footer class="bg-gray-900 text-white py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div>
+                <h4 class="text-xl font-bold mb-4">عن DZ Market</h4>
+                <p class="text-gray-400">وجهتك الأولى للتسوق الإلكتروني في الجزائر، نجمع بين الجودة وسرعة التوصيل.</p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">روابط سريعة</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#" class="hover:text-blue-400">سياسة التوصيل</a></li>
+                    <li><a href="#" class="hover:text-blue-400">طرق الدفع</a></li>
+                    <li><a href="https://dz-market-shop.netlify.app/advertise.html" class="hover:text-blue-400">خدماتنا الإعلانية</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">اتصل بنا</h4>
+                <p class="text-gray-400">الهاتف: 0558592542</p>
+                <div class="flex gap-4 mt-4 text-2xl">
+                    <i class="fab fa-facebook hover:text-blue-500 cursor-pointer"></i>
+                    <i class="fab fa-instagram hover:text-pink-500 cursor-pointer"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
